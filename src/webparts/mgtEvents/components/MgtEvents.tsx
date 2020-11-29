@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import { Text } from "office-ui-fabric-react";
+
 import { Agenda } from "@microsoft/mgt-react";
 
 import { IMgtEventsProps } from "./IMgtEventsProps";
@@ -12,9 +14,13 @@ export const MgtEvents: React.FunctionComponent<IMgtEventsProps> = (
 
   return (
     <>
-          <Agenda days={30}>
+          <Text variant="xLarge">{props.title}</Text>
+          <div style={{ marginTop: 30 }}>
+          <Agenda days={props.numberDays}>
             <Event template="event"  />
           </Agenda>
+          </div>
+
     </>
   );
 };

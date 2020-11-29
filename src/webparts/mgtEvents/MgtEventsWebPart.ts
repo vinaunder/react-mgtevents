@@ -16,6 +16,7 @@ import {
 import { Version } from "@microsoft/sp-core-library";
 import {
   IPropertyPaneConfiguration,
+  PropertyPaneSlider,
   PropertyPaneTextField
 } from "@microsoft/sp-property-pane";
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
@@ -24,7 +25,8 @@ import { IMgtEventsProps } from "./components/IMgtEventsProps";
 import { MgtEvents } from "./components/MgtEvents";
 
 export interface IMgtEventsWebPartProps {
-  description: string;
+  title: string;
+  numberDays: number;
 }
 
 const teamsDefaultTheme = require("../../common/TeamsDefaultTheme.json");
@@ -98,8 +100,10 @@ export default class MgtEventsWebPart extends BaseClientSideWebPart<IMgtEventsWe
     const element: React.ReactElement<IMgtEventsProps> = React.createElement(
       MgtEvents,
       {
+        title: this.properties.title,
         themeVariant: this._themeVariant,
-        serviceScope: this.context.serviceScope
+        serviceScope: this.context.serviceScope,
+        numberDays: this.properties.numberDays,
       }
     );
 
@@ -125,9 +129,14 @@ export default class MgtEventsWebPart extends BaseClientSideWebPart<IMgtEventsWe
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
+                PropertyPaneTextField('title', {
                   label: strings.DescriptionFieldLabel
-                })
+                }),
+                PropertyPaneSlider('numberDays', {
+                  min: 8,
+                  max: 180,
+                  label: 'Number of days to show',
+                  value: this.properties.numberDays | 8               })
               ]
             }
           ]

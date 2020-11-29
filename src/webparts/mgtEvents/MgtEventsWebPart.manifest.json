@@ -23,7 +23,8 @@
     "description": { "default": "mgtEvents description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "mgtEvents"
+      "title": "My Events",
+      "numberDays": 8
     }
   }]
 }
